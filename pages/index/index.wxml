@@ -1,0 +1,38 @@
+<!--index.wxml-->
+
+<view>
+  <block wx:if="{{errorMsg}}">
+      <text>{{errorMsg}}</text>
+  </block>  
+  <view >          
+    <zan-tab class="tabbar"
+      list="{{ tablist.list }}"
+      selected-id="{{ tablist.selectedId }}"   
+      bind:tabchange="handleZanTabChange"
+    />    
+  </view>
+  <view class="zan-panel" class="news-hot" wx:if="{{newsList.length > 0}}" data-index="0" bindtap="onTap">
+      <navigator url="../detail/detail?id={{newsList[0].id}}">
+        <image class="news-card-bg" src="{{newsList[0].firstImage}}" mode="scaleToFill" ></image>
+        <view class="news-tag"><zan-tag type="danger">热门</zan-tag></view>
+        <view class="new-hot-title">{{newsList[0].title}}
+        </view>
+        <view class="new-hot-source">{{newsList[0].source}}  {{newsList[0].date}}</view>
+    </navigator>
+  </view>
+    
+
+  <view class="news-list" wx:if="{{newsList.length > 0}}">            
+        <zan-panel without-border wx:for="{{newsList}}" data-index="{{index}}" bindtap="onTap">
+            <navigator url="../detail/detail?id={{item.id}}">
+              <zan-card
+                card-class="news-card"
+                thumb="{{item.firstImage}}"
+                title="{{item.title}}"
+                desc="{{item.source}}  {{item.date}}"
+              >
+            </zan-card>
+      </navigator>
+    </zan-panel>  
+</view>
+</view>

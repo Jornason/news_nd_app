@@ -1,0 +1,10 @@
+{
+  "navigationBarTitleText": "新闻资讯",
+  "usingComponents": {
+    "zan-tab": "../../dist/tab/index",
+    "zan-card": "../../dist/card/index",
+    "zan-panel": "../../dist/panel/index",
+    "zan-tag": "../../dist/tag/index",
+    "doc-page": "../../components/doc-page/index"
+  }  
+}

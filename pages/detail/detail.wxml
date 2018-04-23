@@ -1,0 +1,24 @@
+<!-- detail.wxml -->
+<view class="container">
+<block wx:if="{{errorMsg}}">
+    <text>{{errorMsg}}</text>
+</block>
+
+<block wx:else>
+
+<text class='detail-title'>{{detailData.title}}</text>
+<view class='detail-msg'>
+    <text>{{detailData.source}} {{detailData.date}}</text>
+    <text class='detail-read-count'>阅读数：{{detailData.readCount}}</text>
+</view>
+
+<block wx:for="{{detailData.content}}" wx:key="{{id}}">
+    <image wx:if="{{item.type == 'image'}}" src="{{item.src}}"></image>
+    <text wx:elif="{{item.type == 'p'}}" class='detail-text'>{{item.text}}</text>
+    <text wx:elif="{{item.type == 'strong'}}" class='detail-strong'>{{item.text}}</text>
+    <text wx:else>error parse: {{item}}</text>
+</block>
+
+</block>
+
+</view>
