@@ -5,6 +5,7 @@
     "zan-card": "../../dist/card/index",
     "zan-panel": "../../dist/panel/index",
     "zan-tag": "../../dist/tag/index",
+    "zan-loading": "../../dist/loading/index",
     "doc-page": "../../components/doc-page/index"
   }  
 }

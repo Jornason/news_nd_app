@@ -4,6 +4,9 @@
   <block wx:if="{{errorMsg}}">
       <text>{{errorMsg}}</text>
   </block>  
+  <block wx:if="{{loading}}">
+    <zan-loading type="spinner" color="black"></zan-loading>
+  </block>  
   <view >          
     <zan-tab class="tabbar"
       list="{{ tablist.list }}"
@@ -13,7 +16,12 @@
   </view>
   <view class="zan-panel" class="news-hot" wx:if="{{newsList.length > 0}}" data-index="0" bindtap="onTap">
       <navigator url="../detail/detail?id={{newsList[0].id}}">
-        <image class="news-card-bg" src="{{newsList[0].firstImage}}" mode="scaleToFill" ></image>
+        <block wx:if="{{newsList[0]['firstImage'] === undefined || newsList[0]['firstImage'] === ''}}">
+          <image class="news-card-bg" src="/images/default.jpg" mode="scaleToFill" ></image>
+        </block>  
+        <block wx:else>
+          <image class="news-card-bg" src="{{newsList[0].firstImage}}" mode="scaleToFill" ></image>
+        </block>  
         <view class="news-tag"><zan-tag type="danger">热门</zan-tag></view>
         <view class="new-hot-title">{{newsList[0].title}}
         </view>
@@ -25,13 +33,24 @@
   <view class="news-list" wx:if="{{newsList.length > 0}}">            
         <zan-panel without-border wx:for="{{newsList}}" data-index="{{index}}" bindtap="onTap">
             <navigator url="../detail/detail?id={{item.id}}">
-              <zan-card
-                card-class="news-card"
-                thumb="{{item.firstImage}}"
-                title="{{item.title}}"
-                desc="{{item.source}}  {{item.date}}"
-              >
-            </zan-card>
+              <block wx:if="{{item['firstImage'] === undefined || item['firstImage'] === ''}}">
+                <zan-card
+                  card-class="news-card"
+                  thumb="/images/default.jpg"
+                  title="{{item.title}}"
+                  desc="{{item.source}}  {{item.date}}"
+                  >
+                </zan-card>
+              </block>  
+              <block wx:else>
+                  <zan-card
+                    card-class="news-card"
+                    thumb="{{item.firstImage }}"
+                    title="{{item.title}}"
+                    desc="{{item.source}}  {{item.date}}"
+                  >
+                </zan-card>
+              </block>  
       </navigator>
     </zan-panel>  
 </view>

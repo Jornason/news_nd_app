@@ -33,7 +33,6 @@ const TAB_LIST = [
 ]
 
 
-
 Page( {
   data: {
     tablist: {
@@ -41,6 +40,7 @@ Page( {
       selectedId: 0
     },
     newsList: [],
+    loading: false,
     errorMsg: ''
   },
   handleZanTabChange(e) {
@@ -75,7 +75,7 @@ Page( {
   },
   onLoad: function () {
     const that = this;
-
+    
     wx.getSystemInfo({
       success: function (res) {
         that.setData({
@@ -86,9 +86,33 @@ Page( {
     });
     this.getNewsList(0);
   },
-  onTap: function(index) {
-    console.log(index.currentTarget.dataset.index);
-  }
+  onPullDownRefresh: function () {
+    this.setData({
+      loading:true
+    });
+    const that = this;
+    api.getNewsList(NEWS_TYPE[this.data.tablist.selectedId])
+      .then(res => {
+        wx.stopPullDownRefresh();
+        wx.hideLoading();
+        // console.log(JSON.stringify(res));
+        that.setData({
+          loading:false,
+          newsList: res,
+          errorMsg: ''
+        })
+      })
+      .catch(res => {
+        wx.hideLoading();
+        console.log(res)
 
+        that.setData({
+          loading:false,
+          errorMsg: '请求错误, 请检查网络'
+        })
+      })
+  },
+  onTap: function(index) {
+  }
 
 })
